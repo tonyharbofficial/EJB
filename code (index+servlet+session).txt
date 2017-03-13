@@ -1,0 +1,69 @@
+AddServlet
+@EJB
+    AddEJB obj;
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            int i=Integer.parseInt(request.getParameter("n1"));
+            int j=Integer.parseInt(request.getParameter("n2"));
+           
+            obj.setI(i);
+            obj.setJ(j);
+            obj.add();
+            int k = obj.getK();
+            out.println("addition using EJB is: "+k);
+        }
+    }
+
+
+
+
+
+
+AddEJB
+@Stateless
+public class AddEJB {
+
+     private int i,j,k;
+
+    public int getI() {
+        return i;
+    }
+
+    public void setI(int i) {
+        this.i = i;
+    }
+
+    public int getJ() {
+        return j;
+    }
+
+    public void setJ(int j) {
+        this.j = j;
+    }
+
+    public int getK() {
+        return k;
+    }
+
+    public void setK(int k) {
+        this.k = k;
+    }
+    public void add(){
+    k = i + j ;
+    }
+}
+
+
+
+
+
+index
+<form action="MyServlet" method="post">
+            <h1>Hello World!</h1> <br>
+            Username: <input type="text" name="username"> <br>
+            Password <input type="password" name="pass"> <br>
+            
+        <input type="submit" method="method1" value="Login">
+        
